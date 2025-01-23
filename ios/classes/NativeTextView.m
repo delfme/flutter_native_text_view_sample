@@ -35,11 +35,14 @@
         _textView.textContainer.maximumNumberOfLines = [args[@"maxLines"] intValue];
         _textView.textContainer.lineBreakMode = NSLineBreakByCharWrapping;
         // Enable text selection
-        _textView.selectable = YES;
-        //_textView.scrollEnabled = _textView.textContainer.maximumNumberOfLines != 0;
+        // Set isSelectable from params
+        // Check if 'isSelectable' is provided, default to true if not
+        BOOL isSelectable = args[@"isSelectable"] ? [args[@"isSelectable"] boolValue] : YES;
+        _textView.selectable = isSelectable;
+
         // Adjust scrolling based on text content and available space
         CGFloat contentHeight = [_textView sizeThatFits:CGSizeMake(frame.size.width, MAXFLOAT)].height;
-        _textView.scrollEnabled = contentHeight > frame.size.height; //YES;
+        _textView.scrollEnabled = contentHeight > frame.size.height;
 
         // Optional: Set editable to false if you don't want users to edit the text
         [_textView setEditable:FALSE];
