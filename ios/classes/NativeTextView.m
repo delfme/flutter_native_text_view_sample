@@ -46,6 +46,15 @@
 
         // Optional: Set editable to false if you don't want users to edit the text
         [_textView setEditable:FALSE];
+
+        // Remove padding
+        _textView.textContainerInset = UIEdgeInsetsZero;
+        _textView.textContainer.lineFragmentPadding = 0;
+
+        if (args[@"fontSize"]) {
+            CGFloat fontSize = [args[@"fontSize"] floatValue];
+            _textView.font = [UIFont systemFontOfSize:fontSize];
+        }
         
         _delegate = [[NativeTextViewDelegate alloc] initWithChannel:_channel arguments:args ];
         _textView.delegate = _delegate;
